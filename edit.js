@@ -21,5 +21,5 @@ module.exports = async function (input) {
   const {EDITOR} = process.env
   if (!EDITOR) throw new Error('No $EDITOR set')
   await spawn(EDITOR, [f], {stdio: 'inherit'})
-  return readFile(f)
+  return readFile(f, 'utf8')
 }
