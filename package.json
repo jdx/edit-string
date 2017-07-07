@@ -1,0 +1,19 @@
+{
+  "name": "edit-string",
+  "version": "0.0.0",
+  "author": "Jeff Dickey",
+  "dependencies": {
+    "tmp": "^0.0.31"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
+  },
+  "files": [
+    "edit.js"
+  ],
+  "license": "WTFPL",
+  "main": "edit.js",
+  "scripts": {
+    "test": "standard"
+  }
+}
