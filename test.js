@@ -1,5 +1,6 @@
 const edit = require('./')
 
-edit('foo').then(result => {
-  console.log(`Received: ${result}`)
+edit(`{"foo": "bar"}`, {postfix: '.json'}).then(result => {
+  console.log(`Received:`)
+  console.dir(result)
 })

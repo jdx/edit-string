@@ -7,7 +7,7 @@ function spawn (...args) {
   })
 }
 
-module.exports = async function (input) {
+module.exports = async function (input, options = {}) {
   const {promisify} = require('util')
   const tmp = require('tmp')
   const fs = require('fs')
@@ -15,7 +15,7 @@ module.exports = async function (input) {
   const writeFile = promisify(fs.writeFile)
   const readFile = promisify(fs.readFile)
 
-  let f = await tmpName()
+  let f = await tmpName(options)
   await writeFile(f, input)
 
   const {EDITOR} = process.env
