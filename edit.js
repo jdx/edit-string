@@ -18,8 +18,14 @@ module.exports = async function (input, options = {}) {
   let f = await tmpName(options)
   await writeFile(f, input)
 
-  const {EDITOR} = process.env
-  if (!EDITOR) throw new Error('No $EDITOR set')
-  await spawn(EDITOR, [f], {stdio: 'inherit'})
-  return readFile(f, 'utf8')
+  const editors = [process.env.VISUAL || process.env.EDITOR, 'pico', 'nano', 'vi']
+  for (let editor of editors) {
+    try {
+      await spawn(editor, [f], {stdio: 'inherit'})
+      return readFile(f, 'utf8')
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err
+    }
+  }
+  throw new Error('No $VISUAL or $EDITOR set')
 }
