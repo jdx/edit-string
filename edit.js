@@ -24,9 +24,10 @@ module.exports = async function (input, options = {}) {
   for (let editor of editors) {
     try {
       debug(editor, [f])
-      process.stderr.write(`Waiting for ${editor}... `)
+      let msg = `Waiting for ${editor}... `
+      process.stderr.write(msg)
       await spawn(editor, [f], {shell: true, stdio: 'inherit'})
-      process.stderr.write(`\r`)
+      process.stderr.write(`\r${msg.replace(/./g, ' ')}\r`)
       let output = await readFile(f, 'utf8')
       unlink(f).catch(err => console.error(err))
       return output
