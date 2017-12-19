@@ -14,6 +14,8 @@ module.exports = async function (input, options = {}) {
   const tmpName = promisify(tmp.tmpName)
   const writeFile = promisify(fs.writeFile)
   const readFile = promisify(fs.readFile)
+  const unlink = promisify(fs.unlink)
+  const debug = require('debug')
 
   let f = await tmpName(options)
   await writeFile(f, input)
@@ -21,8 +23,13 @@ module.exports = async function (input, options = {}) {
   const editors = [process.env.VISUAL || process.env.EDITOR, 'pico', 'nano', 'vi']
   for (let editor of editors) {
     try {
-      await spawn(editor, [f], {stdio: 'inherit'})
-      return readFile(f, 'utf8')
+      debug(editor, [f])
+      process.stderr.write(`Waiting for ${editor}... `)
+      await spawn(editor, [f], {shell: true, stdio: 'inherit'})
+      process.stderr.write(`\r`)
+      let output = await readFile(f, 'utf8')
+      unlink(f).catch(err => console.error(err))
+      return output
     } catch (err) {
       if (err.code !== 'ENOENT') throw err
     }
