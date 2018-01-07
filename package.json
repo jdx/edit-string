@@ -10,6 +10,12 @@
     "ts-lodash": "^4.0.9",
     "tslib": "^1.8.1"
   },
+  "devDependencies": {
+    "@types/execa": "^0.8.1",
+    "@types/lodash": "^4.14.92",
+    "@types/node": "^8.5.7",
+    "@types/tmp": "^0.0.33"
+  },
   "files": [
     "lib"
   ],
@@ -18,11 +24,5 @@
   "repository": "jdxcode/edit-string",
   "scripts": {
     "prepare": "tsc"
-  },
-  "devDependencies": {
-    "@types/execa": "^0.8.1",
-    "@types/lodash": "^4.14.92",
-    "@types/node": "^8.5.7",
-    "@types/tmp": "^0.0.33"
   }
 }
