@@ -1,37 +1,28 @@
-function spawn (...args) {
-  const {spawn} = require('child_process')
-  return new Promise((resolve, reject) => {
-    spawn(...args)
-    .on('error', reject)
-    .on('close', resolve)
-  })
-}
+import * as tmp from 'tmp'
+import * as execa from 'execa'
+import _ from 'ts-lodash'
 
-function tmpFile (opts) {
+const debug = require('debug')('edit-string')
+
+function tmpFile (opts: tmp.Options): Promise<{name: string, fd: number, cleanup: () => void}> {
   return new Promise((resolve, reject) => {
-    const tmpFile = require('tmp').file
-    tmpFile(opts, (err, name, fd, cleanup) => {
+    tmp.file(opts, (err, name, fd, cleanup) => {
       if (err) return reject(err)
       resolve({name, fd, cleanup})
     })
   })
 }
 
-let _debug
-function debug (...args) {
-  if (!_debug) _debug = require('debug')('edit-string')
-  return _debug(...args)
-}
 
-async function edit (name, editor) {
+async function edit (name: string, editor: string) {
   debug(editor, [name])
   let msg = `Waiting for ${editor}... `
   process.stderr.write(msg)
-  await spawn(editor, [name], {shell: true, stdio: 'inherit'})
+  await execa(editor, [name], {stdio: 'inherit'})
   process.stderr.write(`\r${msg.replace(/./g, ' ')}\r`)
 }
 
-module.exports = async function (input, options = {}) {
+module.exports = async function (input: string, options = {}): Promise<string> {
   const {promisify} = require('util')
   const FS = require('fs')
   const fs = {
@@ -42,7 +33,7 @@ module.exports = async function (input, options = {}) {
   const {name, fd, cleanup} = await tmpFile(options)
   await fs.write(fd, input)
 
-  const editors = [process.env.VISUAL || process.env.EDITOR, 'pico', 'nano', 'vi']
+  const editors = _.compact([process.env.VISUAL || process.env.EDITOR, 'pico', 'nano', 'vi'])
   for (let editor of editors) {
     try {
       await edit(name, editor)
