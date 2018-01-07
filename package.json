@@ -24,6 +24,7 @@
   "main": "lib/edit.js",
   "repository": "jdxcode/edit-string",
   "scripts": {
-    "prepare": "cli-engine-util"
+    "prepare": "cli-engine-util",
+    "test": "cli-engine-util"
   }
 }
