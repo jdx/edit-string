@@ -5,17 +5,17 @@
   "author": "Jeff Dickey",
   "dependencies": {
     "debug": "^3.1.0",
-    "execa": "^0.8.0",
+    "execa": "^0.9.0",
     "launch-editor": "^2.0.0",
     "tmp": "^0.0.33",
-    "ts-lodash": "^4.0.9",
-    "tslib": "^1.8.1"
+    "ts-lodash": "^4.0.11",
+    "tslib": "^1.9.0"
   },
   "devDependencies": {
-    "@cli-engine/util": "^1.1.2",
+    "@cli-engine/util": "^1.2.12",
     "@types/execa": "^0.8.1",
-    "@types/lodash": "^4.14.92",
-    "@types/node": "^8.5.7",
+    "@types/lodash": "^4.14.98",
+    "@types/node": "^9.4.0",
     "@types/tmp": "^0.0.33"
   },
   "files": [
