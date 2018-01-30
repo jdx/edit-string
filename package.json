@@ -1,7 +1,7 @@
 {
   "name": "edit-string",
   "description": "edit a string in $EDITOR",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Jeff Dickey",
   "dependencies": {
     "debug": "^3.1.0",
