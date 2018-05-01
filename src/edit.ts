@@ -1,6 +1,6 @@
 import * as tmp from 'tmp'
 import * as execa from 'execa'
-import _ from 'ts-lodash'
+import * as _ from 'lodash'
 
 const debug = require('debug')('edit-string')
 
